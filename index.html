@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
         margin: 0;
         background: #020202;
@@ -12,24 +17,82 @@
       }
       canvas {
         display: block;
+        position: relative;
+        z-index: 1;
       }
-      h1 {
+      .message {
         position: absolute;
         top: 20%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        z-index: 2;
+      }
+      .message h1 {
+        display: block;
         color: #fff;
         font-family: "Source Sans Pro";
-        font-size: 5em;
+        font-size: 3em;
         font-weight: 900;
         -webkit-user-select: none;
         user-select: none;
+        text-align: center;
+      }
+      .message p {
+        font-family: "Source Sans Pro";
+        font-size: 2em;
+        font-weight: 600;
+        -webkit-user-select: none;
+        user-select: none;
+        color: #fff;
+        font-style: italic;
+        text-align: center;
+        padding-top: 20px;
+      }
+      .bg {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 3;
+      }
+
+      .bg img {
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+      #audio {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        opacity: 0;
       }
     </style>
   </head>
   <body>
-    <h1>Happy Birthday</h1>
-    <canvas id="birthday"></canvas>
+    <div class="bg" id="bg">
+      <img src="somya.png" alt="" />
+    </div>
+    <div class="message">
+      <h1>
+        Happy Birthday <br />
+        Somya
+      </h1>
+      <p>
+        "I pray for you every day and I don’t think that will ever stop. Happy
+        birthday, baby!"
+      </p>
+      <p onclick="play()">Paly Music</p>
+    </div>
+    <canvas id="birthday"> </canvas>
+
+    <audio id="audio" controls autoplay>
+      <source src="hbd.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
   </body>
   <script>
     // helper functions
@@ -191,5 +254,14 @@
       then = now;
       birthday.update(delta / 1000);
     })();
+
+    setTimeout(() => {
+      document.getElementById("bg").style.display = "none";
+    }, "3000");
+
+    function play() {
+      var audio = document.getElementById("audio");
+      audio.play();
+    }
   </script>
 </html>
